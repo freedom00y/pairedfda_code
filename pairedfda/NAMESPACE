@@ -1,0 +1,8 @@
+useDynLib(pairedfda, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
+import(orthogonalsplinebasis)
+import(heavy)
+importFrom("grDevices", "rainbow")
+importFrom("graphics", "lines", "par")
+importFrom("stats", "rnorm", "sd")

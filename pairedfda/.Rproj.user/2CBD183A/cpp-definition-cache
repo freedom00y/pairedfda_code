@@ -1,0 +1,332 @@
+[
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 13,
+                "name" : "f(double, int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@f#d#I#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 20,
+                "name" : "df(double, int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@df#d#I#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 27,
+                "name" : "newton_md(int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@newton_md#I#d#d#"
+            },
+            {
+                "column" : 12,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 49,
+                "name" : "slash_u(double, int, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@slash_u#d#I#d#"
+            },
+            {
+                "column" : 12,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 72,
+                "name" : "EM(const Rcpp::List, const Rcpp::List, const arma::vec, const char)",
+                "parent_name" : "",
+                "usr" : "c:@F@EM#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1S0_#1$@N@arma@S@Col>#d#1C#"
+            }
+        ],
+        "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMinner.h",
+        "file_last_write" : 1605907390.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMouter.cpp",
+                "kind" : 6,
+                "line" : 66,
+                "name" : "minEM(const Rcpp::List, const arma::vec, const char, const int, const int, const double, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@minEM#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1$@N@arma@S@Col>#d#1C#1I#1I#1d#I#"
+            }
+        ],
+        "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/EMouter.cpp",
+        "file_last_write" : 1605905583.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 17,
+                "name" : "mu_t(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@mu_t#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 24,
+                "name" : "nu_t(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@nu_t#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 31,
+                "name" : "f_y1(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_y1#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 40,
+                "name" : "f_y2(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_y2#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 49,
+                "name" : "f_z1(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_z1#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 55,
+                "name" : "f_z2(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_z2#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 75,
+                "name" : "gen_data(const int &, const double &, const double &, const char &, const int, const int)",
+                "parent_name" : "",
+                "usr" : "c:@F@gen_data#&1I#&1d#S1_#&1C#1I#1I#"
+            }
+        ],
+        "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/dataGen.cpp",
+        "file_last_write" : 1605907278.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/loglike.h",
+                "kind" : 6,
+                "line" : 12,
+                "name" : "loglike(const Rcpp::List, const Rcpp::List, const char)",
+                "parent_name" : "",
+                "usr" : "c:@F@loglike#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1S0_#1C#"
+            }
+        ],
+        "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/loglike.h",
+        "file_last_write" : 1605906613.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/orth_algo.h",
+                "kind" : 6,
+                "line" : 11,
+                "name" : "orth_algo(arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@orth_algo#$@N@arma@S@Mat>#d#S0_#"
+            }
+        ],
+        "file" : "/Users/huiya/Documents/Research/pairedfda/code/pairedfda/src/orth_algo.h",
+        "file_last_write" : 1605906669.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 13,
+                "name" : "f(double, int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@f#d#I#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 20,
+                "name" : "df(double, int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@df#d#I#d#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 27,
+                "name" : "newton_md(int, double, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@newton_md#I#d#d#"
+            },
+            {
+                "column" : 12,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 49,
+                "name" : "slash_u(double, int, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@slash_u#d#I#d#"
+            },
+            {
+                "column" : 12,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+                "kind" : 6,
+                "line" : 72,
+                "name" : "EM(const Rcpp::List, const Rcpp::List, const arma::vec, const char)",
+                "parent_name" : "",
+                "usr" : "c:@F@EM#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1S0_#1$@N@arma@S@Col>#d#1C#"
+            }
+        ],
+        "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMinner.h",
+        "file_last_write" : 1605907390.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMouter.cpp",
+                "kind" : 6,
+                "line" : 66,
+                "name" : "minEM(const Rcpp::List, const arma::vec, const char, const int, const int, const double, int)",
+                "parent_name" : "",
+                "usr" : "c:@F@minEM#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1$@N@arma@S@Col>#d#1C#1I#1I#1d#I#"
+            }
+        ],
+        "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/EMouter.cpp",
+        "file_last_write" : 1605905583.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 17,
+                "name" : "mu_t(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@mu_t#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 24,
+                "name" : "nu_t(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@nu_t#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 31,
+                "name" : "f_y1(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_y1#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 40,
+                "name" : "f_y2(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_y2#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 49,
+                "name" : "f_z1(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_z1#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 17,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 55,
+                "name" : "f_z2(const arma::vec)",
+                "parent_name" : "",
+                "usr" : "c:@F@f_z2#1$@N@arma@S@Col>#d#"
+            },
+            {
+                "column" : 6,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+                "kind" : 6,
+                "line" : 75,
+                "name" : "gen_data(const int &, const double &, const double &, const char &, const int, const int)",
+                "parent_name" : "",
+                "usr" : "c:@F@gen_data#&1I#&1d#S1_#&1C#1I#1I#"
+            }
+        ],
+        "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/dataGen.cpp",
+        "file_last_write" : 1605907278.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 8,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/loglike.h",
+                "kind" : 6,
+                "line" : 12,
+                "name" : "loglike(const Rcpp::List, const Rcpp::List, const char)",
+                "parent_name" : "",
+                "usr" : "c:@F@loglike#1$@N@Rcpp@S@Vector>#VI19#@N@Rcpp@ST>1#T@PreserveStorage#1S0_#1C#"
+            }
+        ],
+        "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/loglike.h",
+        "file_last_write" : 1605906613.000000
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 12,
+                "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/orth_algo.h",
+                "kind" : 6,
+                "line" : 11,
+                "name" : "orth_algo(arma::mat, arma::mat)",
+                "parent_name" : "",
+                "usr" : "c:@F@orth_algo#$@N@arma@S@Mat>#d#S0_#"
+            }
+        ],
+        "file" : "/Volumes/huiya/Documents/pairedfda/code/pairedfda/src/orth_algo.h",
+        "file_last_write" : 1605906669.000000
+    }
+]

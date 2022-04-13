@@ -1,0 +1,222 @@
+
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> ###############################################################################
+> ###############################################################################
+> varres=0.04
+> simu_times=550
+> type='n'
+> freedom_range=c(1)
+> filename=paste('simu_output_outlier/',type,'_',varres,'_',simu_times,'.txt', sep = "")
+> title=paste('Generate from',type, 'distribution.','Repeat',simu_times,'times.',
++             'The variance of residual is',varres)
+> write.table(title,filename)
+> for(free in freedom_range)
++ {
++   write.table(paste("== degree of freedom: ",free,"=="),filename,append=TRUE)
++   library(parallel)
++   no_cores <-detectCores()-1
++   cl <- makeCluster(no_cores)
++   clusterExport(cl,c("free","filename","varres","type"))
++   res1=parSapply(cl, 
++                  1:simu_times+7, 
++                  function(i){
++                    source('onesimu_outlier.R')
++                    temp=try(simu(seed = i,type,free,varres))
++                    if(class(temp)=='try-error')
++                      a=rep(NA,24)
++                    else
++                      a=temp
++                    
++                    write.table( t( c(i,round(a,4)) ), filename,append = TRUE,row.names = F,col.names = F)
++                    a
++                  })
++   stopCluster(cl)
++   res = res1[,!is.na(res1[1,])]
++   res=apply(res[,1:500],1,mean)
++   res=matrix(res,nrow = 3,byrow = TRUE)
++   colnames(res)=c("Mean1","Mean2","YPC1","YPC2","ZPC1","ZPC2","IND1","IND2")
++   rownames(res)=c('t',"slash","norm")
++   write.table(round(1000*res,2),filename,append=TRUE)
++ }  
+value0=7869.96
+value1=9742.25
+differ=-0.237903
+Increase more than 5%. Force to break!
+value0=7339.27
+value1=7753.11
+differ=-0.0563871
+Increase more than 5%. Force to break!
+value0=7131.01
+value1=7551.23
+differ=-0.0589278
+Increase more than 5%. Force to break!
+value0=7897.63
+value1=8333.67
+differ=-0.0552121
+Increase more than 5%. Force to break!
+value0=6962.1
+value1=7555.15
+differ=-0.0851837
+Increase more than 5%. Force to break!
+value0=7340.14
+value1=9984.84
+differ=-0.360306
+Increase more than 5%. Force to break!
+value0=7213.13
+value1=7719.13
+differ=-0.0701498
+Increase more than 5%. Force to break!
+value0=7588.93
+value1=8229.49
+differ=-0.0844075
+Increase more than 5%. Force to break!
+value0=7430.05
+value1=7969.43
+differ=-0.0725936
+Increase more than 5%. Force to break!
+value0=7228.05
+value1=7669.3
+differ=-0.0610464
+Increase more than 5%. Force to break!
+value0=7181.47
+value1=7579.95
+differ=-0.0554871
+Increase more than 5%. Force to break!
+value0=7263.33
+value1=8069.54
+differ=-0.110998
+Increase more than 5%. Force to break!
+value0=7432.65
+value1=7939.76
+differ=-0.0682274
+Increase more than 5%. Force to break!
+value0=7178.39
+value1=7634.22
+differ=-0.0635011
+Increase more than 5%. Force to break!
+value0=7140.56
+value1=7600.05
+differ=-0.0643495
+Increase more than 5%. Force to break!
+value0=7890.46
+value1=8484.39
+differ=-0.0752724
+Increase more than 5%. Force to break!
+Warning messages:
+1: In write.table(paste("== degree of freedom: ", free, "=="), filename,  :
+  appending column names to file
+2: In write.table(round(1000 * res, 2), filename, append = TRUE) :
+  appending column names to file
+> 
+> 
+> 
+> ###############################################################################
+> ###############################################################################
+> varres=0.25
+> simu_times=550
+> type='n'
+> freedom_range=c(1)
+> filename=paste('simu_output_outlier/',type,'_',varres,'_',simu_times,'.txt', sep = "")
+> title=paste('Generate from',type, 'distribution.','Repeat',simu_times,'times.',
++             'The variance of residual is',varres)
+> write.table(title,filename)
+> for(free in freedom_range)
++ {
++   write.table(paste("== degree of freedom: ",free,"=="),filename,append=TRUE)
++   library(parallel)
++   no_cores <-detectCores()-1
++   cl <- makeCluster(no_cores)
++   clusterExport(cl,c("free","filename","varres","type"))
++   res1=parSapply(cl, 
++                 1:simu_times+7, 
++                 function(i){
++                   source('onesimu_outlier.R')
++                   temp=try(simu(seed = i,type,free,varres))
++                   if(class(temp)=='try-error')
++                     a=rep(NA,24)
++                   else
++                     a=temp
++                   
++                   write.table( t( c(i,round(a,4)) ), filename,append = TRUE,row.names = F,col.names = F)
++                   a
++                 })
++   stopCluster(cl)
++   res = res1[,!is.na(res1[1,])]
++   res=apply(res[,1:500],1,mean)
++   res=matrix(res,nrow = 3,byrow = TRUE)
++   colnames(res)=c("Mean1","Mean2","YPC1","YPC2","ZPC1","ZPC2","IND1","IND2")
++   rownames(res)=c('t',"slash","norm")
++   write.table(round(1000*res,2),filename,append=TRUE)
++ }  
+value0=6398.65
+value1=6855.43
+differ=-0.0713862
+Increase more than 5%. Force to break!
+value0=6252.03
+value1=6568.57
+differ=-0.0506301
+Increase more than 5%. Force to break!
+value0=6316.41
+value1=6724.71
+differ=-0.0646413
+Increase more than 5%. Force to break!
+value0=7085.44
+value1=7484.45
+differ=-0.0563144
+Increase more than 5%. Force to break!
+value0=6559.17
+value1=6955.95
+differ=-0.0604914
+Increase more than 5%. Force to break!
+value0=5992.96
+value1=6303.37
+differ=-0.051796
+Increase more than 5%. Force to break!
+value0=6469.46
+value1=6836.88
+differ=-0.0567936
+Increase more than 5%. Force to break!
+value0=6558.08
+value1=7333.27
+differ=-0.118203
+Increase more than 5%. Force to break!
+value0=7180.96
+value1=8004.56
+differ=-0.114692
+Increase more than 5%. Force to break!
+value0=6607.88
+value1=7190.61
+differ=-0.0881864
+Increase more than 5%. Force to break!
+value0=8261.07
+value1=8870.71
+differ=-0.0737971
+Increase more than 5%. Force to break!
+Warning messages:
+1: In write.table(paste("== degree of freedom: ", free, "=="), filename,  :
+  appending column names to file
+2: In write.table(round(1000 * res, 2), filename, append = TRUE) :
+  appending column names to file
+> 
+> proc.time()
+    user   system  elapsed 
+   0.548    0.253 3826.562 

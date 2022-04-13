@@ -1,0 +1,14 @@
+Package: pairedfda
+Type: Package
+Title: Paired Functional Data Analysis
+Version: 3.1
+Date: 2020-09-28
+Author: Huiya Zhou <huiya@stat.tamu.edu>
+Maintainer: Huiya Zhou <huiya@stat.tamu.edu>
+Description: Fit paired data to joint functional data models. 
+License: GPL-3
+Imports: Rcpp (>= 1.0.3), orthogonalsplinebasis, heavy
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.1.1
+NeedsCompilation: yes
+Packaged: 2022-02-04 19:30:44 UTC; huiya

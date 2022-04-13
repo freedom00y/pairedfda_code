@@ -1,0 +1,305 @@
+---
+title: "real_data"
+author: "Huiya"
+date: "11/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load data,warning=FALSE}
+library(pairedfda)
+load("../astronomy.RData")
+
+bknots <<- c(c(-0.1,-0.05),
+             seq(0, 1, length.out = 15),
+             c(1.05,1.1))
+bknots = 50*bknots-5
+
+
+data=predata(nobs_y = nobs_r,
+             nobs_z = nobs_i,
+             time_y = R$Phase,
+             time_z = II$Phase,
+             y = R$Mag,
+             z = II$Mag,
+             knots = bknots, order = 3)
+outpath=''
+
+for(type in c('t','n'))
+{
+  load(paste0(outpath,"cvtable_",type,".RData"))
+  res_collect=matrix(as.double(res_collect),nrow=8,ncol=16,byrow=FALSE)
+  #ind_min = which.min(res_collect[7,])
+  # if(type=='t'){
+  #   ind_min = 9
+  # }else{
+  #   ind_min = 
+  # }
+  if(type=='t') ind_min=7
+  if(type=='n') ind_min=7
+  
+  lambda=res_collect[3:6,ind_min]
+  ka = res_collect[1,ind_min]
+  kb = res_collect[2,ind_min]
+  assign(paste0("ka_",type),ka)
+  assign(paste0("kb_",type),kb)
+  assign(paste0(type,"lambda"),lambda)
+  #assign(paste0(type,"lambda"),c(0,0,0,0))
+  p = minEM(data, lambda, type, ka, kb, tol= 1e-4,maxiter=100)
+  assign(paste0("p",type),p)
+}
+rm(list=c("lambda","ka","kb","p"))
+save(pt,pn,file = paste0(outpath,"Estimators.RData"))
+```
+
+## Summary pc components
+```{r echo=FALSE,warning=FALSE}
+library(knitr)
+library(kableExtra)
+load(paste0(outpath,"cvtable_t.RData"))
+t_table = res_collect
+pc_table=matrix(as.double(res_collect[7,])+as.double(res_collect[8,]),4,4,byrow = FALSE)
+rownames(pc_table)=c("kb=1","kb=2","kb=3","kb=4")
+colnames(pc_table)=c("ka=1","ka=2","ka=3","ka=4")
+kable(round(1000*pc_table,2),caption="SMN-T model") %>%  kable_styling(bootstrap_options = "striped", full_width = F)
+
+
+load(paste0(outpath,"cvtable_n.RData"))
+n_table = res_collect
+pc_table=matrix(as.double(res_collect[7,])+as.double(res_collect[8,]),4,4,byrow = FALSE)
+rownames(pc_table)=c("kb=1","kb=2","kb=3","kb=4")
+colnames(pc_table)=c("ka=1","ka=2","ka=3","ka=4")
+kable(round(1000*pc_table,2),caption="Normal model")%>%  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+## Fit all subjects
+Fit R band for all subjects.
+
+
+```{r echo=FALSE}
+n=data$n
+x = seq(-10,50,0.1)
+Bval = orthbasis(x,bknots)$B
+ind_y = c(0, cumsum(data$nobs_y))
+ind_z = c(0, cumsum(data$nobs_z))
+time_y=data$time_y
+time_z=data$time_z
+filenames <- list.files(path="../ExtinctionCorrectedAlignedData/",pattern = ".*.txt")
+starlabel <- read.csv(file = '../ExtinctionCorrectedAlignedData/labels 1.csv')
+
+pdf(paste0(outpath,"R_band_subjects_fitting.pdf"))
+par(mfrow=c(5,5))
+par(mar=c(1.5,1.5,1.5,1.5))
+for(j in 1:n)
+{
+  yt=Bval%*%pt$theta_mu+Bval%*%pt$theta_f%*%pt$alpha[j,]
+  #ys=Bval%*%ps$theta_mu+Bval%*%ps$theta_f%*%ps$alpha[j,]
+  yn=Bval%*%pn$theta_mu+Bval%*%pn$theta_f%*%pn$alpha[j,]
+  y_cur = data$y[(ind_y[j]+1):ind_y[j+1]]
+  ymin = min(y_cur)
+  ymax = max(y_cur)
+  yrange = ymax-ymin
+  plot(time_y[(ind_y[j]+1):ind_y[j+1]],y_cur,
+       cex=0.5,pch=21,main=paste(starlabel[j,1],starlabel[j,2],sep="-"),xlim=c(-10,50),ylim=c(ymin-0.1*yrange,ymax+0.1*yrange))
+  points(x,yt,'l',col="red")
+  #points(x,ys,'l',col="green")
+  points(x,yn,'l',col="blue")
+}
+dev.off()
+```
+
+
+Fit I band for all subjects.
+
+```{r echo=FALSE}
+pdf(paste0(outpath,"I_band_subjects_fitting.pdf"))
+par(mfrow=c(5,5))
+par(mar=c(1.5,1.5,1.5,1.5))
+for(j in 1:n)
+{
+  zt=Bval%*%pt$theta_nu+Bval%*%pt$theta_g%*%pt$beta[j,]
+  #zs=Bval%*%ps$theta_nu+Bval%*%ps$theta_g%*%ps$beta[j,]
+  zn=Bval%*%pn$theta_nu+Bval%*%pn$theta_g%*%pn$beta[j,]
+  z_cur = data$z[(ind_z[j]+1):ind_z[j+1]]
+  zmin = min(z_cur)
+  zmax = max(z_cur)
+  zrange = zmax-zmin
+  plot(time_z[(ind_z[j]+1):ind_z[j+1]],z_cur,
+       cex=0.5,pch=21,main=paste(starlabel[j,1],starlabel[j,2],sep="-"),xlim=c(-10,50), ylim=c(zmin-0.1*zrange,zmax+0.1*zrange))
+  points(x,zt,'l',col="red")
+  #points(x,zs,'l',col="green")
+  points(x,zn,'l',col="blue")
+}
+dev.off()
+```
+
+## Use ggplot to plot all figures
+```{r plot mean curves, echo=FALSE}
+library(ggplot2)
+x = seq(-10,50,0.1)
+Bval = orthbasis(x,bknots)$B
+
+phase = c(x,x,x,x)
+Mag = c(Bval%*%pt$theta_mu, Bval%*%pn$theta_mu, Bval%*%pt$theta_nu, Bval%*%pn$theta_nu)
+Band = rep(c("R","I"), each = 2 * length(x))
+model = rep(c("T","Normal","T","Normal"), each = length(x)) 
+df_mean = data.frame(phase,Mag,Band,model)
+
+
+p_mean = ggplot(df_mean) + geom_line(aes(x=phase, y=Mag, color=model)) + facet_grid(cols = vars(Band))
+ggsave("mean_curve.pdf",p_mean, width=10, height=5, units="in")
+```
+
+
+```{r plot pc curves , echo=FALSE}
+phase = rep(x, ka_t+ka_n+kb_t+kb_n)
+Mag = c(as.vector(Bval%*%pt$theta_f), as.vector(Bval%*%pn$theta_f), as.vector(Bval%*%pt$theta_g), as.vector(Bval%*%pn$theta_g))
+Mag[1:length(x)+(ka_t+ka_n)*length(x)] = -Mag[1:length(x)+(ka_t+ka_n)*length(x)]
+Band = rep(c("R","I"), c(ka_t+ka_n,kb_t+kb_n)*length(x))
+model = rep(c("T","Normal","T","Normal"), c(ka_t,ka_n,kb_t,kb_n)*length(x)) 
+PC_ord = rep(c(1:ka_t,1:ka_n,1:kb_t,1:kb_n), each=length(x))
+df_pc = data.frame(phase,Mag,Band,model,PC_ord)
+
+
+p_pc = ggplot(df_pc) + geom_line(aes(x=phase, y=Mag, color=model)) + 
+  facet_grid(vars(Band), vars(PC_ord), labeller = label_both) + 
+  ylim(0.6,-0.4)
+ggsave("pc_curve.pdf",p_pc, width=15, height=7.5, units="in")
+
+```
+
+```{r plot ci , echo=FALSE}
+Phase = rep(x, ka_t+ka_n+kb_t+kb_n)    
+mean_curve = c(rep(Bval%*%pt$theta_mu, ka_t),
+               rep(Bval%*%pn$theta_mu, ka_n),
+               rep(Bval%*%pt$theta_nu, kb_t),
+               rep(Bval%*%pn$theta_nu, kb_n))
+ci_up = c(as.vector(Bval%*%(pt$theta_mu%*%matrix(1,nrow=1,ncol=ka_t) + 2 * pt$theta_f[,1:ka_t] %*% diag(apply(pt$alpha[,1:ka_t],2,sd)) )),
+          as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) + 2 * pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
+          as.vector(Bval%*%(pt$theta_nu%*%matrix(1,nrow=1,ncol=kb_t) + 2 * pt$theta_g[,1:kb_t] %*% diag(apply(pt$beta[,1:kb_t],2,sd)) )),
+          as.vector(Bval%*%(pn$theta_nu%*%matrix(1,nrow=1,ncol=kb_n) + 2 * pn$theta_g[,1:kb_n] %*% diag(apply(pn$beta[,1:kb_n],2,sd)) ))
+          )
+ci_down = c(as.vector(Bval%*%(pt$theta_mu%*%matrix(1,nrow=1,ncol=ka_t) - 2 * pt$theta_f[,1:ka_t] %*% diag(apply(pt$alpha[,1:ka_t],2,sd)) )),
+            as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) - 2 * pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
+            as.vector(Bval%*%(pt$theta_nu%*%matrix(1,nrow=1,ncol=kb_t) - 2 * pt$theta_g[,1:kb_t] %*% diag(apply(pt$beta[,1:kb_t],2,sd)) )),
+            as.vector(Bval%*%(pn$theta_nu%*%matrix(1,nrow=1,ncol=kb_n) - 2 * pn$theta_g[,1:kb_n] %*% diag(apply(pn$beta[,1:kb_n],2,sd)) ))
+            )
+band_and_method = rep(c("R band, RRME-t","R band, RRME-normal",
+                        "I band, RRME-t","I band, RRME-normal"),
+                      c(ka_t,ka_n,kb_t,kb_n)*length(x))
+band_and_method = factor(band_and_method, levels=c("R band, RRME-t","R band, RRME-normal","I band, RRME-t","I band, RRME-normal"))
+PC_ord = rep(c(1:ka_t,1:ka_n,1:kb_t,1:kb_n),each=length(x))
+
+
+df_ci = data.frame(Phase, mean_curve, ci_up, ci_down, band_and_method, PC_ord)
+subset_df_ci = df_ci[seq(1,dim(df_ci)[1],20),]
+
+PC_ord.labs <- c("PC 1", "PC 2","PC 3")
+names(PC_ord.labs) <- c(1,2,3)
+
+p_ci = ggplot(df_ci,aes(x = Phase))+
+  geom_ribbon(aes(ymin=ci_down,ymax=ci_up),fill="grey85")+
+  geom_line(aes(y=mean_curve))+
+  geom_point(data=subset_df_ci,aes(x=Phase,y=ci_up),shape="+")+
+  geom_point(data=subset_df_ci,aes(x=Phase,y=ci_down),shape="-")+
+  facet_grid(PC_ord~band_and_method,switch="y",
+             labeller = labeller(PC_ord = PC_ord.labs)) + 
+  ylim(3.2,-0.2) + ylab("Magnitude")
+ggsave("mean+-pc.pdf",p_ci, width=10, height=7, units="in")
+```
+
+```{r, echo=FALSE}
+filenames <- list.files(path="../ExtinctionCorrectedAlignedData/",pattern = ".*.txt")
+
+titles = c("SN2004eo","SN2005iq","SN2006ac","SN2002fb")
+title_ind=c()
+for(i in 1:length(titles))
+{
+  title_ind = c(title_ind,which(filenames==paste0(titles[i],".txt")))
+}
+
+Phase = rep(x,16)
+Mag = c()
+for(j in title_ind)
+{
+  yt=Bval%*%pt$theta_mu+Bval%*%pt$theta_f%*%pt$alpha[j,]
+  yn=Bval%*%pn$theta_mu+Bval%*%pn$theta_f%*%pn$alpha[j,]
+  zt=Bval%*%pt$theta_nu+Bval%*%pt$theta_g%*%pt$beta[j,]
+  zn=Bval%*%pn$theta_nu+Bval%*%pn$theta_g%*%pn$beta[j,]
+  
+  Mag = c(Mag,yt,yn,zt,zn)
+}
+
+sub = rep(titles,each = 4*length(x)) 
+sub = factor(sub,levels=c("SN2002fb","SN2004eo","SN2005iq","SN2006ac"))
+Band = factor( rep( rep(c("R","I"),each=2*length(x)), 4) ,levels=c("R","I") )
+model = rep( rep(c("RRME-t","RRME-normal","RRME-t","RRME-normal"), each = length(x)), 4) 
+
+df_sub = data.frame(Phase,Mag,sub,Band,model)
+
+
+n = data$n
+ind_y = c(0, cumsum(data$nobs_y))
+ind_z = c(0, cumsum(data$nobs_z))
+time_y=data$time_y
+time_z=data$time_z
+
+pt_x=c()
+pt_y=c()
+pt_band=c()
+pt_sub=c()
+
+flag=1
+for(j in title_ind)
+{
+  temp_x = c(time_y[(ind_y[j]+1):ind_y[j+1]], time_z[(ind_z[j]+1):ind_z[j+1]])
+  temp_y = c(data$y[(ind_y[j]+1):ind_y[j+1]], data$z[(ind_z[j]+1):ind_z[j+1]])
+  temp_band = rep(c("R","I"), c(nobs_r[j],nobs_i[j]))
+  temp_sub = rep(titles[flag],nobs_r[j]+nobs_i[j])
+  flag = flag+1
+  pt_x = c(pt_x, temp_x)
+  pt_y = c(pt_y, temp_y)
+  pt_band = c(pt_band, temp_band)
+  pt_sub = c(pt_sub, temp_sub)
+}
+pt_sub=factor(pt_sub,levels=c("SN2004eo","SN2005iq","SN2006ac","SN2002fb"))
+pt_band=factor(pt_band, levels = c("R","I") )
+df_sub_pt = data.frame(pt_x,pt_y,Band = pt_band, sub=pt_sub)
+
+
+band.labs <- c("R band","I band")
+names(band.labs) <- c("R","I")
+
+p_sub = ggplot(df_sub) + 
+  geom_line(aes(x=Phase, y=Mag, linetype=model,color=model), size=1) + 
+  scale_color_manual(values=c("red", "blue")) +
+  facet_grid(vars(Band), vars(sub)) + ylim(3.4,-0.2) +
+  geom_point(data = df_sub_pt, aes(x=pt_x, y=pt_y), size=1) +
+  facet_grid(vars(Band), vars(sub),
+             labeller = labeller(Band = band.labs)) + ylab("Magnitude") + 
+  theme(legend.title = element_text(size = 10), 
+               legend.text = element_text(size = 10))
+ggsave("sub_curve.pdf",p_sub, width=10, height=5, units="in")
+```
+
+```{r Fitting error, echo=FALSE}
+#source('Total_Square_Error.R')
+t_mse = TSE(data,pt,data$nobs_y,data$nobs_z)
+#s_mse = TSE(data,ps,data$nobs_y,data$nobs_z)
+n_mse = TSE(data,pn,data$nobs_y,data$nobs_z)
+matrix(c(t_mse$sy2,n_mse$sy2,t_mse$sz2,n_mse$sz2),nrow = 2,ncol=2,byrow = TRUE)/n*1000
+```
+
+
+```{r,warning=FALSE}
+t_pe=matrix(as.double(t_table),nrow=8,ncol=16,byrow=FALSE)[7:8,7]
+n_pe=matrix(as.double(n_table),nrow=8,ncol=16,byrow=FALSE)[7:8,7]
+matrix(c(t_pe,n_pe),nrow = 2,ncol=2,byrow = FALSE)*1000
+```
+
+
+
+
+

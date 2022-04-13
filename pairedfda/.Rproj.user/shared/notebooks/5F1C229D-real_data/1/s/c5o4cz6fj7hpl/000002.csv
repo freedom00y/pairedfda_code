@@ -1,0 +1,11 @@
+"0","library(pairedfda)
+"
+"2","
+Attaching package: ‘pairedfda’
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    df
+
+"
