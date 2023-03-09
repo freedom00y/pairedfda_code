@@ -1,4 +1,0 @@
-ARGUMENT 'gen_mat_data.R' __ignored__
-
-Fatal error: you must specify '--save', '--no-save' or '--vanilla'
-/usr/local/R/4.1.2/lib64/R/bin/Rcmd: line 64: exec: batch: not found

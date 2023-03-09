@@ -1,7 +1,0 @@
-name	user	system	elapsed
-Kf_CV	1.460	0.019	1.489	
-gen_data	0.001	0.000	0.001	
-minEM	4.229	0.017	4.249	
-orthbasis	0.029	0.000	0.029	
-pairedfda-package	4.226	0.011	4.238	
-plt.data	0.072	0.002	0.076	

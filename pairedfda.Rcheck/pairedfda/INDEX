@@ -1,8 +1,0 @@
-Kf_CV                   K-fold Cross-Validation
-gen_data                Generate simulation data
-minEM                   Estimations
-orthbasis               Create bsplines
-pairedfda-package       Paired Functional Data Analysis
-plt.data                Plot the raw data
-predata                 Preprocessing data
-simplex                 Choosing tuning parameter
