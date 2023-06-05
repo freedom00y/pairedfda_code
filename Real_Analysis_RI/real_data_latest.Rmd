@@ -136,14 +136,14 @@ mean_curve = c(rep(Bval%*%pt$theta_mu, ka_t),
                rep(Bval%*%pt$theta_nu, kb_t),
                rep(Bval%*%pn$theta_nu, kb_n))
 ci_up = c(as.vector(Bval%*%(pt$theta_mu%*%matrix(1,nrow=1,ncol=ka_t) + 2 * pt$theta_f[,1:ka_t] %*% diag(apply(pt$alpha[,1:ka_t],2,sd)) )),
-          as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) + 2 #* pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
-* pn$theta_f[,1:ka_n] * sd(pn$alpha[,1:ka_n]) )),        
+          as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) + 2 * pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
+#* pn$theta_f[,1:ka_n] * sd(pn$alpha[,1:ka_n]) )),        
           as.vector(Bval%*%(pt$theta_nu%*%matrix(1,nrow=1,ncol=kb_t) + 2 * pt$theta_g[,1:kb_t] %*% diag(apply(pt$beta[,1:kb_t],2,sd)) )),
           as.vector(Bval%*%(pn$theta_nu%*%matrix(1,nrow=1,ncol=kb_n) + 2 * pn$theta_g[,1:kb_n] %*% diag(apply(pn$beta[,1:kb_n],2,sd)) ))
           )
 ci_down = c(as.vector(Bval%*%(pt$theta_mu%*%matrix(1,nrow=1,ncol=ka_t) - 2 * pt$theta_f[,1:ka_t] %*% diag(apply(pt$alpha[,1:ka_t],2,sd)) )),
-            as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) - #2 * pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
-2 * pn$theta_f[,1:ka_n] * sd(pn$alpha[,1:ka_n]) )),   
+            as.vector(Bval%*%(pn$theta_mu%*%matrix(1,nrow=1,ncol=ka_n) - 2 * pn$theta_f[,1:ka_n] %*% diag(apply(pn$alpha[,1:ka_n],2,sd)) )),
+#2 * pn$theta_f[,1:ka_n] * sd(pn$alpha[,1:ka_n]) )),   
             as.vector(Bval%*%(pt$theta_nu%*%matrix(1,nrow=1,ncol=kb_t) - 2 * pt$theta_g[,1:kb_t] %*% diag(apply(pt$beta[,1:kb_t],2,sd)) )),
             as.vector(Bval%*%(pn$theta_nu%*%matrix(1,nrow=1,ncol=kb_n) - 2 * pn$theta_g[,1:kb_n] %*% diag(apply(pn$beta[,1:kb_n],2,sd)) ))
             )
