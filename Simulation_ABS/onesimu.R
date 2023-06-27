@@ -9,23 +9,17 @@ simu <- function(seed,type,freedom,varres,filename=NA)
   Kfold=5 ## The fold number for choosing tuning parameters
   
   #################### Source packages ######################################
+  
   library(pairedfda)
   #source('IMSE_each.R') 
-  source('IMSE_each_abs.R')          ## Compute the integral between estimation curve and the true one
+  source('IMSE_each_abs.R')## Compute the integral between estimation curve and the true one
   source('plot_curve.R')
+  
   #################### Data Analysis #########################################
   ## Generate Data
   set.seed(seed)
   data = gen_data(n,varres,freedom,type,ka,kb)
   colnames(data$dataset)  = c("subject","obs_time","y_t","z_t")
-  # Nobs=dim(data$dataset)[1]
-  # nout = round(0.01*Nobs)
-  # ind_cg_y = sample(1:Nobs,nout,replace = FALSE)
-  # data$dataset[ind_cg_y,3] = data$dataset[ind_cg_y,3]+
-  #   sample(c(-1,1),nout,replace=TRUE)*runif(nout,8,10)
-  # ind_cg_z = sample(1:Nobs,15,replace = FALSE)
-  # data$dataset[ind_cg_z,4] = data$dataset[ind_cg_z,4]+
-  #   sample(c(-1,1),nout,replace=TRUE)*runif(nout,8,10)
 
   tmp.data = predata(nobs_y = data$obs_times,
                      nobs_z = data$obs_times,
@@ -38,6 +32,7 @@ simu <- function(seed,type,freedom,varres,filename=NA)
   tmp.data$score = data$score
   tmp.data$latent = data$latent
   data=tmp.data
+  
   ## Choose tuning parameters
   print("start")
   tlambda = simplex(data,Kfold,ka,kb,'t',tol = 1e-4,maxiter = 100)
